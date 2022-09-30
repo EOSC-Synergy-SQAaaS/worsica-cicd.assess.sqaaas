@@ -1,0 +1,46 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: 1.7.0_no_kubectl
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/WORSICA/worsica-cicd:
+      branch: development
+      repo: https://github.com/WORSICA/worsica-cicd
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/WORSICA/worsica-cicd git:
+        commands:
+        - /usr/bin/env sh .sqa/script.messy-dandelion-argentino.sh
+        container: qc.acc_messy-charcoal-lynx
+  QC.Doc:
+    repos:
+      github.com/WORSICA/worsica-cicd find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.skinny-maroon-shrew.sh
+        container: qc.doc_cozy-aquamarine-kingfisher
+      github.com/WORSICA/worsica-cicd git:
+        commands:
+        - /usr/bin/env sh .sqa/script.crappy-olivine-okapi.sh
+        container: qc.doc_crappy-sangria-paradise
+      github.com/WORSICA/worsica-cicd markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.chewy-chestnut-angora.sh
+        container: qc.doc_paltry-salmon-chameleon
+  QC.Lic:
+    repos:
+      github.com/WORSICA/worsica-cicd licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.gummy-bronze-dhole.sh
+        container: qc.lic_clammy-plum-schnauzer
+  QC.Ver:
+    repos:
+      github.com/WORSICA/worsica-cicd get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.tasty-firebrick-magpie.sh
+        container: qc.ver_greasy-cyan-cow
+timeout: 1800
